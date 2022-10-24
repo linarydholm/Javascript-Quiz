@@ -119,7 +119,9 @@ let questionText = document.querySelector("#questionText");
 let btnGrid = document.querySelector(".btn-grid");
 let answerDiv = document.querySelector("#answers");
 let points = document.querySelector("#points");
+let grade = document.querySelector("#grade");
 let totalPoints = 0;
+let allPoints = 10;
 let ol = document.querySelector("#ol");
 let questionIndex = 0;
 let counterIndex = 0;
@@ -226,7 +228,7 @@ let ifChecked = () => {
                 result.innerText = "Fel svar";
                 ol.append(result);
             } else if (answerArray.includes("true") && (resultCounter === trueCounter)) {
-                totalPoints += 10;
+                totalPoints += 1;
                 let result = document.createElement("li");
                 result.innerText = "Rätt svar";
                 ol.append(result);
@@ -251,7 +253,18 @@ let ifChecked = () => {
 
         if (questionIndex === 10) {
             nextBtn.innerText = "Visa resultat";
-            points.innerText = totalPoints + "% rätt";
+            points.innerText = "Du fick " + totalPoints + " rätt";
+
+        if (totalPoints / allPoints * 100 < 50) {
+            grade.innerText = "Underkänt";
+            grade.style.color = "red";
+        } else if (totalPoints / allPoints * 100 === 50 || totalPoints / allPoints * 100 <= 75) {
+            grade.innerText = "Godkänt";
+            grade.style.color = "orange";
+        } else {
+            grade.innerText = "Mycket väl godkänt!";
+            grade.style.color = "green";    
+        }
 
         // lägg till en if/else som färgar totalPoints HÄR!!!
 
