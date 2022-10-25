@@ -10,6 +10,15 @@ body {
     align-items: center;
 }
 
+h2 {
+    font-size: 200%;
+    margin: 0;
+}
+
+#points {
+    margin: 5px;
+}
+
 .light-mode {
     background-color: white;
     color: black;
@@ -68,6 +77,8 @@ body {
     margin: 40px 0 24px 0;
 }
 
+/* alternativ */
+
 .alt {
     margin: 16px;
     padding: 8px;
@@ -79,7 +90,15 @@ body {
     margin: 0 8px 0 0;
 }
 
-ol li {
-    margin: 10px;
+/* ul */
+
+ul {
+    list-style-type: none;
+    padding: 0;
     text-align: left;
+}
+
+.question {
+    font-size: 120%;
+    margin: 24px 0 0 0;
 }

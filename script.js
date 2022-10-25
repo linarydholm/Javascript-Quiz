@@ -4,90 +4,95 @@
 let questionArray = [
 {
     number: "Fråga 1",
-    question: "Fråga 1",
+    question: "Lina har 2 katter?",
     alternatives: [
-        {alternative: "true", isCorrect: true},
-        {alternative: "false", isCorrect: false}
+        {alternative: "Sant", isCorrect: true},
+        {alternative: "Falskt", isCorrect: false}
     ]
 },
 {
     number: "Fråga 2",
-    question: "Fråga 2",
+    question: "Vad har Lina för mellannamn?",
     alternatives: [
-        {alternative: "false", isCorrect: false},
-        {alternative: "true", isCorrect : true},
-        {alternative: "don't know", isCorrect: false},
-        {alternative: "true", isCorrect: true}
+        {alternative: "Marie", isCorrect : true},
+        {alternative: "Helena", isCorrect: false},
+        {alternative: "Matilda", isCorrect: false},
+        {alternative: "Louise", isCorrect: true}
     ]
 },
 {
     number: "Fråga 3",
-    question: "Fråga 3",
+    question: "Hur många syskon har Lina?",
     alternatives: [
-        {alternative: "false", isCorrect: false},
-        {alternative: "don't know", isCorrect: false},
-        {alternative: "no comment", isCorrect : false},
-        {alternative: "true", isCorrect: true}
+        {alternative: "1", isCorrect: false},
+        {alternative: "2", isCorrect: false},
+        {alternative: "3", isCorrect : true},
+        {alternative: "4", isCorrect: false}
     ]
 },
 {
     number: "Fråga 4",
-    question: "Fråga 4",
+    question: "Linas mamma heter Lena?",
     alternatives: [
-        {alternative: "true", isCorrect: true},
-        {alternative: "false", isCorrect: false}
+        {alternative: "Sant", isCorrect: true},
+        {alternative: "Falskt", isCorrect: false}
     ]
 },
 {
     number: "Fråga 5",
-    question: "Fråga 5",
+    question: "Lina bär sin mamma eller pappas efternamn?",
     alternatives: [
-        {alternative: "true", isCorrect: true},
-        {alternative: "false", isCorrect: false}
+        {alternative: "Sant", isCorrect: false},
+        {alternative: "Falskt", isCorrect: true}
     ]
 },
 {
     number: "Fråga 6",
-    question: "Fråga 6",
+    question: "Vilken av apparna spenderar Lina mest tid på?",
     alternatives: [
-        {alternative: "true", isCorrect: true},
-        {alternative: "false", isCorrect: false}
+        {alternative: "Facebook", isCorrect: false},
+        {alternative: "Instagram", isCorrect: false},
+        {alternative: "TikTok", isCorrect : false},
+        {alternative: "Youtube", isCorrect: true}
     ]
 },
 {
     number: "Fråga 7",
-    question: "Fråga 7",
+    question: "Linas favoritgodis är choklad?",
     alternatives: [
-        {alternative: "true", isCorrect: true},
-        {alternative: "false", isCorrect: false}
+        {alternative: "Sant", isCorrect: true},
+        {alternative: "Falskt", isCorrect: false}
     ]
 },
 {
     number: "Fråga 8",
-    question: "Fråga 8",
+    question: "Vad heter Linas syskon?",
     alternatives: [
-        {alternative: "true", isCorrect: true},
-        {alternative: "false", isCorrect: false}
+        {alternative: "Jennie", isCorrect: true},
+        {alternative: "Isabella", isCorrect : true},
+        {alternative: "Martin", isCorrect: false},
+        {alternative: "Fanny", isCorrect: true}
     ]
 },
 {
     number: "Fråga 9",
-    question: "Fråga 9",
+    question: "Linas bästa kompis är av motsatt kön?",
     alternatives: [
-        {alternative: "true", isCorrect: true},
-        {alternative: "false", isCorrect: false}
+        {alternative: "Sant", isCorrect: false},
+        {alternative: "Falskt", isCorrect: true}
     ]
 },
 {
     number: "Fråga 10",
-    question: "Fråga 10",
+    question: "Vilken årstid tycker Lina är den bästa?",
     alternatives: [
-        {alternative: "true", isCorrect: true},
-        {alternative: "false", isCorrect: false}
+        {alternative: "Vår", isCorrect: false},
+        {alternative: "Sommar", isCorrect: true},
+        {alternative: "Höst", isCorrect : false},
+        {alternative: "Vinter", isCorrect: false}
     ]
 }
 ];
-
 
 // Ändrar klass på bodyn för att manipulera färger på bakgrund och text KLAR
 
@@ -121,8 +126,8 @@ let answerDiv = document.querySelector("#answers");
 let points = document.querySelector("#points");
 let grade = document.querySelector("#grade");
 let totalPoints = 0;
-let allPoints = 10;
-let ol = document.querySelector("#ol");
+let allPoints = questionArray.length;
+let ul = document.querySelector("#ul");
 let questionIndex = 0;
 let counterIndex = 0;
 let answerArray = [];
@@ -144,9 +149,15 @@ startBtn.addEventListener("click", startQuiz);
 
 let showNextQuestion = () => {
     questionNr.innerText = questionArray[questionIndex].number;
-    questionText.innerText = questionArray[questionIndex].question;
+    let questionArrayAlt = questionArray[questionIndex].question;
+    questionText.innerText = questionArrayAlt;
     let alt = questionArray[questionIndex].alternatives;
     let trueAlternatives = 0;
+
+    let questionLi = document.createElement("li");
+    questionLi.innerText = questionArrayAlt;
+    questionLi.classList.add("question");
+    ul.append(questionLi);
 
     alt.forEach((trueAlternative) => {
         if (trueAlternative.isCorrect) {
@@ -195,7 +206,7 @@ let ifChecked = () => {
     let moreCheckedInput = document.querySelectorAll("input:checked");
 
 // En funktion som kontrollerar om checkade svar är rätt eller fel och skapar upp en li-tagg för detta
-    let test = () => {
+    let checkIfCorrect = () => {
         let altTwo = questionArray[counterIndex].alternatives;
         let trueCounter = 0;
     
@@ -215,7 +226,7 @@ let ifChecked = () => {
             answerArray.push(value.value);
         });
 
-        // en funktion som ska filtrera vår array på värdet "true" för att vi ska kunna
+        // en funktion som ska filtrerar vår array på värdet "true" för att vi ska kunna
         // jämnföra om checkade true är lika med alla true svarsalternativ
         let checkTrue = (check) => {
             return check === "true";
@@ -226,19 +237,20 @@ let ifChecked = () => {
             if (answerArray.includes("false")) {
                 let result = document.createElement("li");
                 result.innerText = "Fel svar";
-                ol.append(result);
+                ul.append(result);
             } else if (answerArray.includes("true") && (resultCounter === trueCounter)) {
                 totalPoints += 1;
                 let result = document.createElement("li");
-                result.innerText = "Rätt svar";
-                ol.append(result);
+                result.innerText = "Rätt svar!";
+                ul.append(result);
             }
 
+        // tömmer vår array
         answerArray = [];
     
     };
 
-    test();
+    checkIfCorrect();
 
     if (!oneCheckedInput) {
         alert("Du behöver ange minst ett svarsalternativ");
@@ -265,8 +277,6 @@ let ifChecked = () => {
             grade.innerText = "Mycket väl godkänt!";
             grade.style.color = "green";    
         }
-
-        // lägg till en if/else som färgar totalPoints HÄR!!!
 
             nextBtn.addEventListener("click", () => {
                 answerDiv.classList.remove("hide");
